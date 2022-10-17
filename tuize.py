@@ -9,6 +9,7 @@ import cv2, time
 
 def midpoint(ptA, ptB):
 	return ((ptA[0] + ptB[0]) * 0.5, (ptA[1] + ptB[1]) * 0.5)
+uni = input("Desea hacer sus medidas en Milimetros[mm] o Pulgadas [in]")
 while True:
 	video=cv2.VideoCapture(0)
 	check, frame = video.read()
@@ -22,9 +23,8 @@ while True:
 	edged = cv2.Canny(gray, 50, 100)
 	edged = cv2.dilate(edged, None, iterations=10)
 	edged = cv2.erode(edged, None, iterations=10)
-	cnts = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL,
-		cv2.CHAIN_APPROX_SIMPLE)
-	cnts = cnts[0] if imutils.is_cv2() else cnts[1]
+	cnts = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	cnts = cnts[0]# if imutils.is_cv2() else cnts[1]
 	(cnts, _) = contours.sort_contours(cnts)
 	pixelsPerMetric = None
 	for c in cnts:
@@ -51,7 +51,7 @@ while True:
 		cv2.line(orig, (int(tlblX), int(tlblY)), (int(trbrX), int(trbrY)), (255, 0, 255), 2)
 		dA = dist.euclidean((tltrX, tltrY), (blbrX, blbrY))
 		dB = dist.euclidean((tlblX, tlblY), (trbrX, trbrY))
-		uni = input("Desea hacer sus medidas en Milimetros[mm] o Pulgadas [in]")
+		
 		if pixelsPerMetric is None:
 			if uni == "mm":
 				pixelsPerMetric = dB / 24.257
