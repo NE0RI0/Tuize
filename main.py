@@ -31,11 +31,13 @@ class Main(QtWidgets.QMainWindow):
         self.setWindowFlag(Qt.FramelessWindowHint)
         self.quit = QAction("Quit", self)
         self.video=cv2.VideoCapture(0)
+        self.video.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+        self.video.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
         self.display = None
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.get_measurements)
-        self.timer.start(50)
+        self.timer.start(10)
 
         self.ui.toolButton.clicked.connect(self.close_app)
         self.ui.unit_select.currentTextChanged.connect(self.change_units)
