@@ -133,8 +133,7 @@ class Main(QtWidgets.QMainWindow):
             qImg = QImage(self.display.data, width, height, step, QImage.Format_BGR888)
             # show image in img_label
             self.ui.video_display.setPixmap(QPixmap.fromImage(qImg))
-def main():
-    print("Hello")
+
 
 def main_window():  # Run application
     app = QApplication(sys.argv)
